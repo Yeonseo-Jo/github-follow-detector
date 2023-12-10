@@ -11,3 +11,7 @@ export interface UserTypes {
   bio?: string;
   avatar_url?: string;
 }
+export interface followInfoDataTypes {
+  followingData: Array<UserTypes>;
+  followersData: Array<UserTypes>;
+}
