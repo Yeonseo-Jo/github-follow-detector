@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
+
   const [token, setToken] = useState("");
 
   const handleOnChangeTokenInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +16,7 @@ export default function Home() {
 
   const handleonClickNextBtn = () => {
     if (!token) return;
-    router.push("/follow-list");
+    router.push(`/follow-list?token=${token}`);
   };
 
   return (
