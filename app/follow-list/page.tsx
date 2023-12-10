@@ -24,6 +24,7 @@ const page = () => {
       팔로우 리스트 페이지
       {/* 유저 정보 부분! */}
       {profileData && <UserProfile userProfile={profileData} />}
+      {/* 팔로우 정보 보여주는 부분 */}
       {followData && <FollowList followData={followData} />}
     </div>
   );

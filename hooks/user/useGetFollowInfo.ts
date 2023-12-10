@@ -1,5 +1,5 @@
-import { Axios, AxiosError } from "axios";
-import { UserTypes, followInfoDataTypes } from "@/types/User";
+import { AxiosError } from "axios";
+import { followInfoDataTypes } from "@/types/User";
 import { useQuery } from "@tanstack/react-query";
 import { getFollowInfo } from "@/api/getFollowInfo";
 
