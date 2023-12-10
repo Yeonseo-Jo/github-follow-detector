@@ -71,7 +71,7 @@ export const TokenInput = style({
   },
 });
 
-export const TokenInputBtn = style({
+export const TokenInputNextBtn = style({
   width: "100%",
   height: "4.5rem",
 
