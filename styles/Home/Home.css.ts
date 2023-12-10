@@ -6,7 +6,7 @@ export const HomeWrapper = style({
   alignItems: "center",
 
   width: "100%",
-  height: "100vh",
+  height: "calc(100vh - 7rem)",
   padding: "0 15rem",
 });
 
