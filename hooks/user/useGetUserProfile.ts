@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 export const useGetUserProfile = (token: string) => {
   const { isLoading, error, data } = useQuery<UserProfileInfoTypes, AxiosError>(
     {
-      queryKey: ["todos"],
+      queryKey: ["get-profile"],
       queryFn: () => getProfile(token),
     }
   );
