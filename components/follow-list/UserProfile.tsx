@@ -17,6 +17,7 @@ const UserProfile = ({
         width={100}
         height={100}
         alt="유저-프로필-이미지"
+        priority
       />
       {bio}
       <div>
