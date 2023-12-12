@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import "../styles/globals.css";
-import Layout from "@/components/common/Layout";
+import Layout from "../components/common/Layout";
 
 export const metadata: Metadata = {
   title: "깃허브 맞팔 탐지기",

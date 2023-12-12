@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Inter } from "next/font/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Header from "./Header";
 const inter = Inter({ subsets: ["latin"] });
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -10,7 +11,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <body className={inter.className}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <Header />
+        {children}
+      </QueryClientProvider>
     </body>
   );
 };
