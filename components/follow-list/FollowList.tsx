@@ -1,6 +1,7 @@
 import { followInfoDataTypes } from "@/types/User";
 import Image from "next/image";
 import React from "react";
+import * as styles from "../../styles/FollowListPage/FollowList/FollowList.css";
 
 const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
   const { followingData, followersData } = followData;
@@ -18,21 +19,21 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
   });
 
   return (
-    <div>
-      <article>
-        <p>맞팔 아닌 사람</p>
+    <div className={styles.FollowListWrapper}>
+      <article className={styles.ListDetailWrapper}>
+        <p className={styles.ListTitle}>맞팔 아닌 사람</p>
         {unfollowingList.map(({ login, bio, avatar_url }) => {
           return (
             <div key={login}>
               {avatar_url && (
                 <Image
                   src={avatar_url}
-                  width={50}
-                  height={50}
+                  width={100}
+                  height={100}
                   alt="유저-이미지"
                 />
               )}
-              <p>{login}</p>
+              <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
             </div>
           );
@@ -43,20 +44,20 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
       <br />
       <br />
 
-      <article>
-        <p>맞팔 중인 사람</p>
+      <article className={styles.ListDetailWrapper}>
+        <p className={styles.ListTitle}>맞팔 중인 사람</p>
         {matchedList.map(({ login, bio, avatar_url }) => {
           return (
             <div key={login}>
               {avatar_url && (
                 <Image
                   src={avatar_url}
-                  width={50}
-                  height={50}
+                  width={100}
+                  height={100}
                   alt="유저-이미지"
                 />
               )}
-              <p>{login}</p>
+              <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
             </div>
           );

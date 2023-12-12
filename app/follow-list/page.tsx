@@ -1,5 +1,6 @@
 "use client";
 
+import * as styles from "../../styles/FollowListPage/FollowListPage.css";
 import FollowList from "@/components/follow-list/FollowList";
 import UserProfile from "@/components/follow-list/UserProfile";
 import { useGetFollowInfo } from "@/hooks/user/useGetFollowInfo";
@@ -20,7 +21,7 @@ const page = () => {
   const { isLoading, error, data: followData } = useGetFollowInfo(userToken);
 
   return (
-    <div>
+    <div className={styles.FollowListPageWrapper}>
       팔로우 리스트 페이지
       {/* 유저 정보 부분! */}
       {profileData && <UserProfile userProfile={profileData} />}
