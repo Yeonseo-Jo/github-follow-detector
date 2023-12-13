@@ -2,8 +2,13 @@ import { followInfoDataTypes } from "@/types/User";
 import Image from "next/image";
 import React from "react";
 import * as styles from "../../styles/FollowListPage/FollowList/FollowList.css";
+import { client } from "@/api";
+import { useSearchParams } from "next/navigation";
 
 const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
+  const searchParams = useSearchParams();
+  const userToken = searchParams.get("token");
+
   const { followingData, followersData } = followData;
 
   // 맞팔 중인 사람들 리스트
@@ -17,6 +22,34 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
   const unfollowingList = followersData.filter((follower) => {
     return !matchedList.includes(follower);
   });
+
+  const followUser = async (login: string) => {
+    if (!userToken) {
+      return;
+    }
+    try {
+      await client(userToken)
+        .put(`/user/following/${login}`, {
+          username: login,
+        })
+        .then(() => location.reload());
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const unfollowUser = async (login: string) => {
+    if (!userToken) {
+      return;
+    }
+    try {
+      await client(userToken)
+        .delete(`/user/following/${login}`)
+        .then(() => location.reload());
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={styles.FollowListWrapper}>
@@ -35,14 +68,13 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               )}
               <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
+              <button id={login} onClick={(e) => followUser(e.target.id)}>
+                팔로우
+              </button>
             </div>
           );
         })}
       </article>
-
-      {/* 알아보기 쉬우라고 일부러 띄어놨음! 추후 수정! */}
-      <br />
-      <br />
 
       <article className={styles.ListDetailWrapper}>
         <p className={styles.ListTitle}>맞팔 중인 사람</p>
@@ -59,6 +91,9 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               )}
               <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
+              <button id={login} onClick={(e) => unfollowUser(e.target.id)}>
+                언팔로우
+              </button>
             </div>
           );
         })}
