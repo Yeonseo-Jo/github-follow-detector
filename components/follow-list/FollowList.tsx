@@ -28,13 +28,13 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
       return;
     }
     try {
-      await client(userToken)
-        .put(`/user/following/${login}`, {
-          username: login,
-        })
-        .then(() => location.reload());
-    } catch (err) {
-      console.log(err);
+      const response = await client(userToken).put(`/user/following/${login}`);
+      if (response.status === 204) {
+        alert("success");
+        location.reload();
+      }
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -43,9 +43,13 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
       return;
     }
     try {
-      await client(userToken)
-        .delete(`/user/following/${login}`)
-        .then(() => location.reload());
+      const response = await client(userToken).delete(
+        `/user/following/${login}`
+      );
+      if (response.status === 204) {
+        alert("success");
+        location.reload();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -68,7 +72,12 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               )}
               <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
-              <button id={login} onClick={(e) => followUser(e.currentTarget.id)}>
+              <button
+                id={login}
+                onClick={(e) => {
+                  followUser(e.currentTarget.id);
+                }}
+              >
                 팔로우
               </button>
             </div>
@@ -91,7 +100,10 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               )}
               <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
-              <button id={login} onClick={(e) => unfollowUser(e.currentTarget.id)}>
+              <button
+                id={login}
+                onClick={(e) => unfollowUser(e.currentTarget.id)}
+              >
                 언팔로우
               </button>
             </div>
