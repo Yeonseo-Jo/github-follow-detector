@@ -68,7 +68,7 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               )}
               <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
-              <button id={login} onClick={(e) => followUser(e.target.id)}>
+              <button id={login} onClick={(e) => followUser(e.currentTarget.id)}>
                 팔로우
               </button>
             </div>
@@ -91,7 +91,7 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               )}
               <p className={styles.LoginId}>{login}</p>
               <p>{bio}</p>
-              <button id={login} onClick={(e) => unfollowUser(e.target.id)}>
+              <button id={login} onClick={(e) => unfollowUser(e.currentTarget.id)}>
                 언팔로우
               </button>
             </div>
