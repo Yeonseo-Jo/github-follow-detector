@@ -1,15 +1,11 @@
 import { putFollower } from "@/api/putFollower";
+import { FollowerTypes } from "@/types/Follower";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-interface UsePutFollowerProps {
-  login: string;
-  token: string;
-}
-
 const usePutFollower = () => {
   const mutation = useMutation({
-    mutationFn: ({ login, token }: UsePutFollowerProps) => {
+    mutationFn: ({ login, token }: FollowerTypes) => {
       return putFollower(login, token);
     },
     onSuccess: () => {
