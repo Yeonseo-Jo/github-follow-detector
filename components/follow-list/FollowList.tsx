@@ -2,12 +2,15 @@ import { followInfoDataTypes } from "@/types/User";
 import Image from "next/image";
 import React from "react";
 import * as styles from "../../styles/FollowListPage/FollowList/FollowList.css";
-import { client } from "@/api";
 import { useSearchParams } from "next/navigation";
+import usePutFollower from "@/hooks/follower/usePutFollower";
+import useDeleteFollower from "@/hooks/follower/useDeleteFollower";
 
 const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
   const searchParams = useSearchParams();
   const userToken = searchParams.get("token");
+  const putMutation = userToken && usePutFollower();
+  const deleteMutation = userToken && useDeleteFollower();
 
   const { followingData, followersData } = followData;
 
@@ -22,38 +25,6 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
   const unfollowingList = followersData.filter((follower) => {
     return !matchedList.includes(follower);
   });
-
-  const followUser = async (login: string) => {
-    if (!userToken) {
-      return;
-    }
-    try {
-      const response = await client(userToken).put(`/user/following/${login}`);
-      if (response.status === 204) {
-        alert("success");
-        location.reload();
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const unfollowUser = async (login: string) => {
-    if (!userToken) {
-      return;
-    }
-    try {
-      const response = await client(userToken).delete(
-        `/user/following/${login}`
-      );
-      if (response.status === 204) {
-        alert("success");
-        location.reload();
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <div className={styles.FollowListWrapper}>
@@ -75,7 +46,11 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               <button
                 id={login}
                 onClick={(e) => {
-                  followUser(e.currentTarget.id);
+                  putMutation &&
+                    putMutation.mutate({
+                      login: e.currentTarget.id,
+                      token: userToken,
+                    });
                 }}
               >
                 팔로우
@@ -102,7 +77,13 @@ const FollowList = ({ followData }: { followData: followInfoDataTypes }) => {
               <p>{bio}</p>
               <button
                 id={login}
-                onClick={(e) => unfollowUser(e.currentTarget.id)}
+                onClick={(e) =>
+                  deleteMutation &&
+                  deleteMutation.mutate({
+                    login: e.currentTarget.id,
+                    token: userToken,
+                  })
+                }
               >
                 언팔로우
               </button>
